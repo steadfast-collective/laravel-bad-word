@@ -22,10 +22,13 @@ class BadWord
             return true;
         }
 
-        $words = count($parameters) === 0 ?
-            config('bad-word') :
-            Arr::only(config('bad-word'), $parameters);
+        if (config('strict')) {
+            $words = !$parameters ? config('bad-word') : Arr::only(config('bad-word'), $parameters);
+            return !Str::contains(strtolower($value), Arr::flatten($words));
+        }
 
-        return !Str::contains(strtolower($value), Arr::flatten($words));
+        $words = !$parameters ? implode('|', config('bad-word')) : implode('|', Arr::only(config('bad-word'), $parameters)[$parameters[0]]);
+
+        return !preg_match("#\b(" . $words . ")\b#", strtolower($value)) > 0;
     }
 }

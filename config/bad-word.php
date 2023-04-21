@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'strict' => false,
     'en' => [
         '2 girls 1 cup',
         '2g1c',
@@ -106,7 +107,6 @@ return [
         'balls',
         'ballsack',
         'bampot',
-        'bang (one\'s) box',
         'bangbros',
         'bareback',
         'barely legal',
